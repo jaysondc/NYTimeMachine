@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toolbar;
 
 import com.shakeup.nytimemachine.R;
+import com.shakeup.nytimemachine.features.search.adapters.ArticleAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +33,8 @@ public class SearchActivity extends AppCompatActivity {
 
         // Setup our RecyclerView
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        ArticleAdapter adapter = new ArticleAdapter(this, mSearchViewModel.getSearchResults());
         mRecyclerSearch.setLayoutManager(gridLayoutManager);
+        mRecyclerSearch.setAdapter(adapter);
     }
 }

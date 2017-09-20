@@ -27,7 +27,7 @@ public final class Article {
     }
 
     public String getImgUrl() {
-        return imgUrl;
+        return String.format("https://www.nytimes.com/%s", imgUrl);
     }
 
     public void setImgUrl(String imgUrl) {
