@@ -1,4 +1,4 @@
-package com.shakeup.newyorktimemachine;
+package com.shakeup.nytimemachine;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

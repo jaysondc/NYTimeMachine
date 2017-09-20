@@ -1,4 +1,4 @@
-package com.shakeup.newyorktimemachine;
+package com.shakeup.nytimemachine;
 
 import org.junit.Test;
 

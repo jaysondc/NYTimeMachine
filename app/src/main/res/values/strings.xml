@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">New York Time Machine</string>
+    <string name="app_name">NYTime Machine</string>
+    <string name="toolbar_title">NYTime Machine</string>
+    <string name="contentdescription_placeholder">Content description placeholder.</string>
 </resources>
