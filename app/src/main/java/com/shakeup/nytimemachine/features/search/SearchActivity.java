@@ -15,8 +15,8 @@ import butterknife.ButterKnife;
 
 public class SearchActivity extends AppCompatActivity {
 
-    @BindView(R.id.search_toolbar) Toolbar mToolbar;
-    @BindView(R.id.recycler_search_results) RecyclerView mRecyclerSearch;
+    @BindView(R.id.search_toolbar) public Toolbar mToolbar;
+    @BindView(R.id.recycler_search_results) public RecyclerView mRecyclerSearch;
     private SearchViewModel mSearchViewModel;
 
     @Override

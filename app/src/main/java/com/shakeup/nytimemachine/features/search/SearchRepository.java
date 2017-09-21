@@ -1,5 +1,6 @@
 package com.shakeup.nytimemachine.features.search;
 
+import com.shakeup.nytimemachine.commons.api.NytSearchApi;
 import com.shakeup.nytimemachine.commons.models.Article;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 
 class SearchRepository {
+
+    NytSearchApi searchApi
 
     public List<Article> getSearchArticles(){
         return null;

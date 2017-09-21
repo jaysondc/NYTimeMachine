@@ -59,12 +59,9 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
     }
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.textview_article_headline)
-        TextView headline;
-        @BindView(R.id.textview_article_snippet)
-        TextView snippet;
-        @BindView(R.id.image_article)
-        ImageView imageView;
+        @BindView(R.id.textview_article_headline) public TextView headline;
+        @BindView(R.id.textview_article_snippet) public TextView snippet;
+        @BindView(R.id.image_article) public ImageView imageView;
 
         public ArticleViewHolder(View view) {
             super(view);
