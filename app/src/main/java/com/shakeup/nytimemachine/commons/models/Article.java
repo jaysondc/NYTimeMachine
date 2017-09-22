@@ -22,7 +22,7 @@ public final class Article {
     private String documentType;
     private String newsDesk;
 
-    private final String IMG_BASE_URL = "www.nytimes.com/";
+    private final String IMG_BASE_URL = "http://www.nytimes.com/";
 
     public Article(ArticleResponse articleResponse) {
         this.webUrl = articleResponse.web_url;

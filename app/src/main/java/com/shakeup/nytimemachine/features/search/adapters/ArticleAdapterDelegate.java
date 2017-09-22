@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 
 public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
 
+    private final String TAG = this.getClass().getSimpleName();
     private LayoutInflater mInflater;
 
     public ArticleAdapterDelegate(Activity activity) {
@@ -75,7 +76,6 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
             snippet.setText(article.getSnippet());
             if (article.hasImages()) {
                 String imgUrl = article.getImgUrlWide();
-                Picasso.with(imageView.getContext()).setLoggingEnabled(true);
                 Picasso.with(imageView.getContext())
                         .load(imgUrl)
                         .into(imageView);
