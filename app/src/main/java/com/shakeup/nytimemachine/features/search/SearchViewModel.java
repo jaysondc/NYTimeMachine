@@ -10,6 +10,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Jayson on 9/20/2017.
  *
@@ -29,6 +34,27 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     public List<Article> getSearchResults(){
+        Observable<List<Article>> call = mSearchRepo.getSearchArticles("Books");
+        call.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Article>>() {
+                    @Override
+                    public void onNext(List<Article> articleList) {
+                        System.out.println("On Next!");
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        System.out.println("Completed!");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e.toString());
+                    }
+                });
+
+
         return mSearchRepo.getDummySearchArticles();
     }
 

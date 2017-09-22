@@ -8,10 +8,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.Subscriber;
+
 /**
  * Created by Jayson on 9/20/2017.
- *
- * Handles fetching and providing of Article Searches
+ * </p>
+ * Handles fetching and providing of Article Searches. This class serves as an interface between
+ * the ViewModel and our data source (in this case a {@link NytSearchApi}).
  */
 
 public class SearchRepository {
@@ -19,20 +23,35 @@ public class SearchRepository {
     private NytSearchApi mSearchApi;
 
     @Inject
-    public SearchRepository(NytSearchApi searchApi){
+    public SearchRepository(NytSearchApi searchApi) {
         mSearchApi = searchApi;
     }
 
-    public List<Article> getSearchArticles(String query){
-        return null; // for now
-        //return mSearchApi.getSearchResults(query);
+    /**
+     * Creates an Observable that handles our network call. Observers can subscribe and handle
+     * the results.
+     *
+     * @param query Simple query for searching articles
+     * @return an Observable that wraps our API call
+     */
+    public Observable<List<Article>> getSearchArticles(String query) {
+        return Observable.create(
+                new Observable.OnSubscribe<List<Article>>() {
+                    @Override
+                    public void call(Subscriber<? super List<Article>> subscriber) {
+                        subscriber.onNext(null);
+                        subscriber.onCompleted();
+                    }
+                });
     }
+
 
     /**
      * Creates a dummy list of Articles
+     *
      * @return list of Articles
      */
-    public List<Article> getDummySearchArticles(){
+    public List<Article> getDummySearchArticles() {
         List<Article> articleList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
