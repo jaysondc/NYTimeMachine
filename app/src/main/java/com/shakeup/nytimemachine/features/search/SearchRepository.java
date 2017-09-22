@@ -6,18 +6,26 @@ import com.shakeup.nytimemachine.commons.models.Article;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by Jayson on 9/20/2017.
  *
  * Handles fetching and providing of Article Searches
  */
 
-class SearchRepository {
+public class SearchRepository {
 
-    NytSearchApi searchApi
+    private NytSearchApi mSearchApi;
 
-    public List<Article> getSearchArticles(){
-        return null;
+    @Inject
+    public SearchRepository(NytSearchApi searchApi){
+        mSearchApi = searchApi;
+    }
+
+    public List<Article> getSearchArticles(String query){
+        return null; // for now
+        //return mSearchApi.getSearchResults(query);
     }
 
     /**

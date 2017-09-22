@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * This interface is used by Retrofit to build requests for different NYTSearchAPI endpoints
  */
 
-interface NytSearchApiEndpoints {
+public interface NytSearchApiEndpoints {
 
     /**
      * Simple article search

@@ -15,14 +15,17 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
  */
 
 public class NytSearchApi {
-    private static final String BASE_URL = "https://www.nytimes.com/";
-    private static final String API_KEY = "aa082d6fd81f4f46a05d49462cd7b105";
+    private String baseUrl;
+    private String apiKey;
     private NytSearchApiEndpoints mSearchApi;
 
-    public NytSearchApi() {
+    public NytSearchApi(String url, String key) {
+        this.baseUrl = url;
+        this.apiKey = key;
+
         // Initialize retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 
@@ -30,6 +33,6 @@ public class NytSearchApi {
     }
 
     public Call<List<Article>> getSearchResults(String query) {
-        mSearchApi.getSearchedArticles(API_KEY, query);
+        return mSearchApi.getSearchedArticles(apiKey, query);
     }
 }

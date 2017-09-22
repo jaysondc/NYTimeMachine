@@ -3,9 +3,12 @@ package com.shakeup.nytimemachine.features.search;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 
+import com.shakeup.nytimemachine.NytApplication;
 import com.shakeup.nytimemachine.commons.models.Article;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Jayson on 9/20/2017.
@@ -15,18 +18,18 @@ import java.util.List;
  */
 
 public class SearchViewModel extends AndroidViewModel {
-    private final List<Article> mArticles;
-    private final SearchRepository mSearchRepo;
+    private List<Article> mArticles;
+    @Inject
+    public SearchRepository mSearchRepo;
 
     public SearchViewModel(Application application){
         super(application);
 
-        mSearchRepo = new SearchRepository();
-        mArticles = mSearchRepo.getDummySearchArticles();
+        ((NytApplication) getApplication()).getApiComponent().inject(this);
     }
 
     public List<Article> getSearchResults(){
-        return mArticles;
+        return mSearchRepo.getDummySearchArticles();
     }
 
 }
