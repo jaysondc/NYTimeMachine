@@ -20,4 +20,9 @@ public class ArticleAdapter extends ListDelegationAdapter<List<Article>> {
         // Set the items from super class.
         setItems(articles);
     }
+
+    public void addArticles(List<Article> articleList) {
+        this.items.addAll(articleList);
+        this.notifyDataSetChanged(); // TODO Change this to notify only those articles added
+    }
 }

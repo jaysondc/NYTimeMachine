@@ -1,22 +1,58 @@
 package com.shakeup.nytimemachine.commons.models;
 
-import com.squareup.moshi.Json;
+import com.shakeup.nytimemachine.commons.api.ArticleResponse;
+import com.shakeup.nytimemachine.commons.api.MultimediaResponse;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jayson on 9/20/2017.
- *
+ * <p>
  * Model for New York Times Articles
  */
 
 public final class Article {
-    @Json(name="web_url") private String webUrl;
-    private String imgUrl;
+    private String webUrl;
+    private HashMap<String, String> imgUrlMap = new HashMap<>();
     private String snippet;
     private String headline;
-    @Json(name="pub_date") private String pubDate;
+    private String pubDate;
     private String byLine;
-    @Json(name="document_type") private String documentType;
-    @Json(name="news_desk") private String newsDesk; // Category?
+    private String documentType;
+    private String newsDesk;
+
+    private final String IMG_BASE_URL = "www.nytimes.com/";
+
+    public Article(ArticleResponse articleResponse) {
+        this.webUrl = articleResponse.web_url;
+        parseImageUrl(articleResponse.multimedia);
+        this.snippet = articleResponse.snippet;
+        this.headline = articleResponse.headline.main;
+        this.pubDate = articleResponse.pub_date;
+        this.byLine = articleResponse.byline.original;
+        this.documentType = articleResponse.document_type;
+        this.newsDesk = articleResponse.new_desk;
+    }
+
+    private void parseImageUrl(List<MultimediaResponse> multimediaResponseList) {
+        if (multimediaResponseList.isEmpty()) {
+            return;
+        }
+        for (MultimediaResponse media : multimediaResponseList) {
+            imgUrlMap.put(media.subtype, media.url);
+        }
+    }
+
+    public boolean hasImages() {
+        return !imgUrlMap.isEmpty();
+    }
+
+
+
+    /*
+     * GETTERS AND SETTERS
+     */
 
     public String getWebUrl() {
         return webUrl;
@@ -26,12 +62,20 @@ public final class Article {
         this.webUrl = webUrl;
     }
 
-    public String getImgUrl() {
-        return String.format("https://www.nytimes.com/%s", imgUrl);
+    public String getImgUrlThumbnail() {
+        return formatImgUrl(imgUrlMap.get("thumbnail"));
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public String getImgUrlWide() {
+        return formatImgUrl(imgUrlMap.get("wide"));
+    }
+
+    public String getImgUrlXLarge() {
+        return formatImgUrl(imgUrlMap.get("xlarge"));
+    }
+
+    private String formatImgUrl(String url) {
+        return String.format("%s%s", IMG_BASE_URL, url);
     }
 
     public String getSnippet() {

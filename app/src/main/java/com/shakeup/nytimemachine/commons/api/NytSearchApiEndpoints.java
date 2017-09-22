@@ -2,11 +2,9 @@ package com.shakeup.nytimemachine.commons.api;
 
 import com.shakeup.nytimemachine.commons.models.Article;
 
-import java.util.List;
-
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by Jayson on 9/21/2017.
@@ -23,7 +21,7 @@ public interface NytSearchApiEndpoints {
      * @return List of {@link Article} objects
      */
     @GET("articlesearch.json")
-    Observable<List<Article>> getSearchedArticles(
+    Call<NytSearchResponse> getSearchedArticles(
             @Query("api_key") String key,
             @Query("q") String query);
 }

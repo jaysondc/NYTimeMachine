@@ -38,7 +38,9 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
      */
     @Override
     protected boolean isForViewType(@NonNull List<Article> items, int position) {
-        return !items.get(position).getImgUrl().equals("");
+        return true;
+        // TODO Reenable this once we have multiple adapter delegates
+        // return !items.get(position).hasImages();
     }
 
     @NonNull
@@ -71,7 +73,13 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
         public void bind(Article article){
             headline.setText(article.getHeadline());
             snippet.setText(article.getSnippet());
-            Picasso.with(imageView.getContext()).load(article.getImgUrl());
+            if (article.hasImages()) {
+                String imgUrl = article.getImgUrlWide();
+                Picasso.with(imageView.getContext()).setLoggingEnabled(true);
+                Picasso.with(imageView.getContext())
+                        .load(imgUrl)
+                        .into(imageView);
+            }
         }
     }
 
