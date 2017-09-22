@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate;
 import com.shakeup.nytimemachine.R;
 import com.shakeup.nytimemachine.commons.models.Article;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
             snippet.setText(article.getSnippet());
             if (article.hasImages()) {
                 String imgUrl = article.getImgUrlWide();
-                Picasso.with(imageView.getContext())
+                Glide.with(imageView.getContext())
                         .load(imgUrl)
                         .into(imageView);
             }
