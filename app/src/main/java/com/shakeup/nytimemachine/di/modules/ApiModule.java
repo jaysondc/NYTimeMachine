@@ -16,7 +16,7 @@ import dagger.Provides;
 @Module
 public class ApiModule {
 
-    private static final String BASE_URL = "https://www.nytimes.com/";
+    private static final String BASE_URL = "https://api.nytimes.com/svc/search/v2/";
     private static final String API_KEY = "aa082d6fd81f4f46a05d49462cd7b105";
 
     @Provides

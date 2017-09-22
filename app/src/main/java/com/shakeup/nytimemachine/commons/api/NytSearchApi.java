@@ -4,9 +4,10 @@ import com.shakeup.nytimemachine.commons.models.Article;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
+import rx.Observable;
 
 /**
  * Created by Jayson on 9/21/2017.
@@ -27,12 +28,13 @@ public class NytSearchApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
         mSearchApi = retrofit.create(NytSearchApiEndpoints.class);
     }
 
-    public Call<List<Article>> getSearchResults(String query) {
+    public Observable<List<Article>> getSearchResults(String query) {
         return mSearchApi.getSearchedArticles(apiKey, query);
     }
 }

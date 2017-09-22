@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscriber;
 
 /**
  * Created by Jayson on 9/20/2017.
@@ -34,15 +33,8 @@ public class SearchRepository {
      * @param query Simple query for searching articles
      * @return an Observable that wraps our API call
      */
-    public Observable<List<Article>> getSearchArticles(String query) {
-        return Observable.create(
-                new Observable.OnSubscribe<List<Article>>() {
-                    @Override
-                    public void call(Subscriber<? super List<Article>> subscriber) {
-                        subscriber.onNext(null);
-                        subscriber.onCompleted();
-                    }
-                });
+    public Observable<List<Article>> getSearchArticles(final String query) {
+        return mSearchApi.getSearchResults(query);
     }
 
 
