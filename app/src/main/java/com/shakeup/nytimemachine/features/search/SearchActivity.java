@@ -3,8 +3,8 @@ package com.shakeup.nytimemachine.features.search;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.widget.Toolbar;
 
@@ -46,8 +46,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initAdapter() {
         // Setup our RecyclerView
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        mRecyclerSearch.setLayoutManager(gridLayoutManager);
+        StaggeredGridLayoutManager staggeredGridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerSearch.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerSearch.setAdapter(new ArticleAdapter(this, new ArrayList<Article>()));
     }
 
