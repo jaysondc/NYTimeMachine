@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Created by Jayson on 9/20/2017.
+ *
+ * Adapter for displaying articles to the RecyclerView
  */
 
 public class ArticleAdapter extends ListDelegationAdapter<List<Article>> {
@@ -21,8 +23,15 @@ public class ArticleAdapter extends ListDelegationAdapter<List<Article>> {
         setItems(articles);
     }
 
-    public void addArticles(List<Article> articleList) {
+    public void setArticles(List<Article> articleList) {
+        this.items.clear();
         this.items.addAll(articleList);
-        this.notifyDataSetChanged(); // TODO Change this to notify only those articles added
+        this.notifyDataSetChanged();
+    }
+
+    public void appendArticles(List<Article> articleList) {
+        int startChange = items.size();
+        this.items.addAll(articleList);
+        this.notifyItemRangeInserted(startChange, items.size()-1);
     }
 }
