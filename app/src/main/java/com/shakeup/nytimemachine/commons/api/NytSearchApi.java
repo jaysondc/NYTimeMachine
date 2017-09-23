@@ -23,17 +23,15 @@ import rx.Subscriber;
 
 public class NytSearchApi {
     private final String TAG = this.getClass().getSimpleName();
-    private String baseUrl;
     private String apiKey;
     private NytSearchApiEndpoints mSearchApi;
 
     public NytSearchApi(String url, String key) {
-        this.baseUrl = url;
         this.apiKey = key;
 
         // Initialize retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(url)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -49,7 +47,7 @@ public class NytSearchApi {
                 try {
 
                     Call<NytSearchResponse> call;
-                    if (query.equals("")) {
+                    if ("".equals(query)) {
                         // Default search
                         call = mSearchApi.getDefaultArticles(apiKey, page);
                     } else {

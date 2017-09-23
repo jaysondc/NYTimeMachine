@@ -29,7 +29,6 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 public class SearchViewModel extends AndroidViewModel {
 
     public final String LOG_TAG = this.getClass().getSimpleName();
-    private LiveData<List<Article>> mArticles;
     @Inject
     public SearchRepository mSearchRepo;
     private String mQuery;
