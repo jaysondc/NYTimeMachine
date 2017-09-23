@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.shakeup.nytimemachine.R;
 import com.shakeup.nytimemachine.commons.interfaces.EndlessRecyclerViewScrollListener;
@@ -48,9 +49,12 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_activity, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem filterItem = menu.findItem(R.id.action_filter);
         searchItem.getIcon().setTint(getColor(R.color.primaryTextColor));
+        filterItem.getIcon().setTint(getColor(R.color.primaryTextColor));
         final SearchView searchView = (SearchView) searchItem.getActionView();
 
+        // Set up search query listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -120,5 +124,13 @@ public class SearchActivity extends AppCompatActivity {
                 ((ArticleAdapter) mRecyclerSearch.getAdapter()).appendArticles(articleList);
             }
         });
+    }
+
+    /**
+     * Respond to clicks of the filter button
+     * @param item is the menu item that was clicked
+     */
+    public void onFilterClick(MenuItem item) {
+        Toast.makeText(this, "Filter button clicked!", Toast.LENGTH_SHORT).show();
     }
 }

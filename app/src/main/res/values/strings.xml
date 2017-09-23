@@ -3,4 +3,5 @@
     <string name="toolbar_title">NYTime Machine</string>
     <string name="contentdescription_placeholder">Content description placeholder.</string>
     <string name="menu_search">Search</string>
+    <string name="menu_filter">Filter</string>
 </resources>
