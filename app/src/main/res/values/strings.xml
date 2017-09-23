@@ -4,4 +4,7 @@
     <string name="contentdescription_placeholder">Content description placeholder.</string>
     <string name="menu_search">Search</string>
     <string name="menu_filter">Filter</string>
+    <string name="filter_sort_order">Sort Order</string>
+    <string name="filter_begin_date">Begin Date</string>
+    <string name="filter_news_desks">News Desks</string>
 </resources>

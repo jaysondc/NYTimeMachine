@@ -1,8 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/label_sort_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/spinner_sort_order"
+        android:text="@string/filter_sort_order"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+
+    <Spinner
+        android:id="@+id/spinner_sort_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label_sort_order">
+
+    </Spinner>
+
+    <TextView
+        android:id="@+id/label_begin_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/edittext_date"
+        android:text="@string/filter_begin_date"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        app:layout_constraintTop_toBottomOf="@id/spinner_sort_order" />
+
+    <EditText
+        android:id="@+id/edittext_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/label_begin_date" />
+
+    <TextView
+        android:id="@+id/label_news_desks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/checkboxes_news_desks"
+        android:text="@string/filter_news_desks"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        app:layout_constraintTop_toBottomOf="@id/edittext_date" />
+
+    <LinearLayout
+        android:id="@+id/checkboxes_news_desks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/label_news_desks">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
