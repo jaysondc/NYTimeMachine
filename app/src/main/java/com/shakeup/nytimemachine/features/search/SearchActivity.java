@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.shakeup.nytimemachine.R;
+import com.shakeup.nytimemachine.commons.interfaces.EndlessRecyclerViewScrollListener;
 import com.shakeup.nytimemachine.commons.models.Article;
 import com.shakeup.nytimemachine.features.search.adapters.ArticleAdapter;
 
@@ -27,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.recycler_search_results)
     public RecyclerView mRecyclerSearch;
     private SearchViewModel mSearchViewModel;
+    private EndlessRecyclerViewScrollListener mScrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,20 @@ public class SearchActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerSearch.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerSearch.setAdapter(new ArticleAdapter(this, new ArrayList<Article>()));
+
+        // Set our endless scroll listener
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        mScrollListener =
+                new EndlessRecyclerViewScrollListener(staggeredGridLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        // Triggered only when new data needs to be appended to the list
+                        // Add whatever code is needed to append new items to the bottom of the list
+                        requestAdditionalResults(page);
+                    }
+                };
+        // Adds the scroll listener to RecyclerView
+        mRecyclerSearch.addOnScrollListener(mScrollListener);
     }
 
     /**
@@ -84,10 +100,24 @@ public class SearchActivity extends AppCompatActivity {
      * changes to the ArticleList (there won't be any unless the user initiates a new search)
      */
     private void requestSearchResults(String query) {
-        mSearchViewModel.getSearchResults(query).observe(this, new Observer<List<Article>>() {
+        mScrollListener.resetState();
+        mSearchViewModel.getNewSearchResults(query).observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articleList) {
                 ((ArticleAdapter) mRecyclerSearch.getAdapter()).setArticles(articleList);
+            }
+        });
+    }
+
+    /**
+     * Initiates a search through the ViewHolder. The LiveData object allows us to listen for
+     * changes to the ArticleList (there won't be any unless the user initiates a new search)
+     */
+    private void requestAdditionalResults(int page) {
+        mSearchViewModel.getAdditionalSearchResults(page).observe(this, new Observer<List<Article>>() {
+            @Override
+            public void onChanged(@Nullable List<Article> articleList) {
+                ((ArticleAdapter) mRecyclerSearch.getAdapter()).appendArticles(articleList);
             }
         });
     }

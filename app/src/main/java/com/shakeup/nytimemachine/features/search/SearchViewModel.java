@@ -32,11 +32,21 @@ public class SearchViewModel extends AndroidViewModel {
     private LiveData<List<Article>> mArticles;
     @Inject
     public SearchRepository mSearchRepo;
+    private String mQuery;
 
     public SearchViewModel(Application application){
         super(application);
 
         ((NytApplication) getApplication()).getApiComponent().inject(this);
+    }
+
+    public LiveData<List<Article>> getNewSearchResults(String query) {
+        mQuery = query;
+        return getSearchResults(mQuery, 1);
+    }
+
+    public LiveData<List<Article>> getAdditionalSearchResults(int page) {
+        return getSearchResults(mQuery, page);
     }
 
     /**
@@ -45,11 +55,11 @@ public class SearchViewModel extends AndroidViewModel {
      * @param query search term for the NytSearchApi
      * @return a LiveData list of articles that can be observed for changes
      */
-    public LiveData<List<Article>> getSearchResults(String query){
+    private LiveData<List<Article>> getSearchResults(String query, int page){
 
         final MutableLiveData<List<Article>> data = new MutableLiveData<>();
 
-        mSearchRepo.getSearchArticles(query).subscribeOn(Schedulers.io())
+        mSearchRepo.getSearchArticles(query, page).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Article>>() {
                     @Override
