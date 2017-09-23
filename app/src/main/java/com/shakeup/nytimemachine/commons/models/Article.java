@@ -30,7 +30,9 @@ public final class Article {
         this.snippet = articleResponse.snippet;
         this.headline = articleResponse.headline.main;
         this.pubDate = articleResponse.pub_date;
-        this.byLine = articleResponse.byline.original;
+        if (articleResponse.byline != null) {
+            this.byLine = articleResponse.byline.original;
+        }
         this.documentType = articleResponse.document_type;
         this.newsDesk = articleResponse.new_desk;
     }
