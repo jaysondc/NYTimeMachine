@@ -23,5 +23,16 @@ public interface NytSearchApiEndpoints {
     @GET("articlesearch.json")
     Call<NytSearchResponse> getSearchedArticles(
             @Query("api_key") String key,
-            @Query("q") String query);
+            @Query("q") String query
+    );
+
+    /**
+     * Default article search
+     * @param key API key parameter
+     * @return
+     */
+    @GET("articlesearch.json")
+    Call<NytSearchResponse> getDefaultArticles(
+            @Query("api_key") String key
+    );
 }

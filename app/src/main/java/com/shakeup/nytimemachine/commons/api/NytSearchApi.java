@@ -7,6 +7,7 @@ import com.shakeup.nytimemachine.commons.models.Article;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -46,8 +47,17 @@ public class NytSearchApi {
             public void call(Subscriber<? super List<Article>> subscriber) {
                 // Perform network call and response parsing here.
                 try {
-                    Response<NytSearchResponse> response =
-                            mSearchApi.getSearchedArticles(apiKey, query).execute();
+
+                    Call<NytSearchResponse> call;
+                    if (query.equals("")) {
+                        // Default search
+                        call = mSearchApi.getDefaultArticles(apiKey);
+                    } else {
+                        // Explicit search
+                        call = mSearchApi.getSearchedArticles(apiKey, query);
+                    }
+
+                    Response<NytSearchResponse> response = call.execute();
                     if (response.isSuccessful()) {
                         Log.d(TAG, "call: Successful request!");
                         // Parse the response into a List<Article>
