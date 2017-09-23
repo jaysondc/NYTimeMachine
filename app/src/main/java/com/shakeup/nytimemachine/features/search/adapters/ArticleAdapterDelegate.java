@@ -75,10 +75,13 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
             headline.setText(article.getHeadline());
             snippet.setText(article.getSnippet());
             if (article.hasImages()) {
+                imageView.setVisibility(View.VISIBLE);
                 String imgUrl = article.getImgUrlWide();
                 Glide.with(imageView.getContext())
                         .load(imgUrl)
                         .into(imageView);
+            } else {
+                imageView.setVisibility(View.GONE);
             }
         }
     }
