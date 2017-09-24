@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_margin="16dp">
 
     <TextView
         android:id="@+id/label_sort_order"
@@ -12,50 +11,99 @@
         android:layout_height="wrap_content"
         android:labelFor="@id/spinner_sort_order"
         android:text="@string/filter_sort_order"
-        android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner_sort_order"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_sort_order">
-
-    </Spinner>
+        android:layout_marginTop="8dp"
+        android:entries="@array/sort_order"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_sort_order" />
 
     <TextView
         android:id="@+id/label_begin_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:labelFor="@id/edittext_date"
         android:text="@string/filter_begin_date"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-        app:layout_constraintTop_toBottomOf="@id/spinner_sort_order" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_sort_order" />
 
     <EditText
         android:id="@+id/edittext_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:inputType="date"
-        app:layout_constraintTop_toBottomOf="@id/label_begin_date" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_begin_date" />
 
     <TextView
         android:id="@+id/label_news_desks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:labelFor="@id/checkboxes_news_desks"
+        android:layout_marginTop="16dp"
         android:text="@string/filter_news_desks"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-        app:layout_constraintTop_toBottomOf="@id/edittext_date" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_date" />
 
-    <LinearLayout
-        android:id="@+id/checkboxes_news_desks"
+    <CheckBox
+        android:id="@+id/checkbox_arts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/label_news_desks">
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_news_desks" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/label_checkbox_arts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/news_desk_arts"
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_arts"
+        app:layout_constraintLeft_toRightOf="@id/checkbox_arts"
+        app:layout_constraintTop_toTopOf="@id/checkbox_arts" />
+
+    <CheckBox
+        android:id="@+id/checkbox_fashion_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_arts" />
+
+    <TextView
+        android:id="@+id/label_checkbox_fashion_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/news_desk_fashion_and_style"
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_fashion_style"
+        app:layout_constraintLeft_toRightOf="@id/checkbox_fashion_style"
+        app:layout_constraintTop_toTopOf="@id/checkbox_fashion_style" />
+
+    <CheckBox
+        android:id="@+id/checkbox_sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_fashion_style" />
+
+    <TextView
+        android:id="@+id/label_checkbox_sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/news_desk_sports"
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_sports"
+        app:layout_constraintLeft_toRightOf="@id/checkbox_sports"
+        app:layout_constraintTop_toTopOf="@id/checkbox_sports" />
 </android.support.constraint.ConstraintLayout>
