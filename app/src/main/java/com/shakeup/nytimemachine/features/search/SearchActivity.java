@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -74,6 +75,17 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        filterItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                FragmentManager fm = getSupportFragmentManager();
+                FilterDialogFragment filterDialogFragment = new FilterDialogFragment();
+                filterDialogFragment.show(fm, "fragment_filter_dialog");
+
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -128,6 +140,7 @@ public class SearchActivity extends AppCompatActivity {
 
     /**
      * Respond to clicks of the filter button
+     *
      * @param item is the menu item that was clicked
      */
     public void onFilterClick(MenuItem item) {

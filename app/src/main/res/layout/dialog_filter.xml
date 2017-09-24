@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/label_sort_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:labelFor="@id/spinner_sort_order"
+        android:labelFor="@+id/spinner_sort_order"
         android:text="@string/filter_sort_order"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:labelFor="@id/edittext_date"
+        android:labelFor="@+id/edittext_date"
         android:text="@string/filter_begin_date"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         app:layout_constraintLeft_toLeftOf="parent"
