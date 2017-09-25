@@ -46,6 +46,21 @@ public class SearchViewModel extends AndroidViewModel {
         return getSearchResults(mQuery, page);
     }
 
+    public LiveData<List<Article>> getNewFilteredSearchResults(String query,
+                                                               String sortBy,
+                                                               String startDate,
+                                                               List<String> newsDesks) {
+        mQuery = query;
+        return getSearchResults(mQuery, 1);
+    }
+
+    public LiveData<List<Article>> getAdditionalFilteredSearchResults(int page,
+                                                                      String sortBy,
+                                                                      String startDate,
+                                                                      List<String> newsDesks) {
+        return getSearchResults(mQuery, page);
+    }
+
     /**
      * Fetches a List of Articles from SearchRepo and wraps it in a LiveData object to be
      * observed by the SearchActivity.

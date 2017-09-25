@@ -2,6 +2,9 @@ package com.shakeup.nytimemachine.features.search;
 
 import android.arch.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jayson on 9/24/2017.
  *
@@ -9,6 +12,12 @@ import android.arch.lifecycle.ViewModel;
  */
 
 public class FilterDialogViewModel extends ViewModel {
+
+    private final String SORT_BY_OLDEST = "oldest";
+    private final String SORT_BY_NEWEST = "newest";
+    private final String NEWS_DESK_ARTS = "Arts";
+    private final String NEWS_DESK_FASHION_STYLE = "Fashion & Style";
+    private final String NEWS_DESK_SPORTS = "Sports";
 
     private boolean mFilterEnabled = false;
     private int mSortOrderIndex = 0;
@@ -21,24 +30,30 @@ public class FilterDialogViewModel extends ViewModel {
         return mFilterEnabled;
     }
 
-    public int getSortOrderIndex() {
-        return mSortOrderIndex;
+    public String getSortOrder() {
+        if (mSortOrderIndex == 0) {
+            return SORT_BY_OLDEST;
+        } else {
+            return SORT_BY_NEWEST;
+        }
     }
 
-    public long getDate() {
-        return mDate;
+    public String getDate() {
+        return Long.toString(mDate);
     }
 
-    public boolean getArts() {
-        return mArts;
-    }
+    /**
+     * Returns a List of applicable News Desks the user wants to see.
+     * @return a List of Strings representing news desks
+     */
+    public List<String> getNewsDesks() {
+        List<String> newsDesks = new ArrayList<>();
 
-    public boolean getFashionStyle() {
-        return mFashionStyle;
-    }
+        if (mArts) newsDesks.add(NEWS_DESK_ARTS);
+        if (mFashionStyle) newsDesks.add(NEWS_DESK_FASHION_STYLE);
+        if (mSports) newsDesks.add(NEWS_DESK_SPORTS);
 
-    public boolean getSports() {
-        return mSports;
+        return newsDesks;
     }
 
     public void setFilterEnabled(boolean enabled) {

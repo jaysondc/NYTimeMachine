@@ -1,5 +1,6 @@
 package com.shakeup.nytimemachine.features.search;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -122,6 +123,17 @@ public class SearchActivity extends AppCompatActivity {
         mScrollListener.resetState();
         if (mFilterViewModel.getFilterEnabled()) {
             Log.d(TAG, "requestSearchResults: Filtered new search!");
+            LiveData<List<Article>> articleData = mSearchViewModel.getNewFilteredSearchResults(
+                    query,
+                    mFilterViewModel.getSortOrder(),
+                    mFilterViewModel.getDate(),
+                    mFilterViewModel.getNewsDesks());
+            articleData.observe(this, new Observer<List<Article>>() {
+                @Override
+                public void onChanged(@Nullable List<Article> articleList) {
+                    ((ArticleAdapter) mRecyclerSearch.getAdapter()).setArticles(articleList);
+                }
+            });
         } else {
             Log.d(TAG, "requestSearchResults: Unfiltered new search!");
             mSearchViewModel.getNewSearchResults(query).observe(this, new Observer<List<Article>>() {
@@ -140,6 +152,18 @@ public class SearchActivity extends AppCompatActivity {
     private void requestAdditionalResults(int page) {
         if (mFilterViewModel.getFilterEnabled()) {
             Log.d(TAG, "requestAdditionalResults: Filtered additional search!");
+            LiveData<List<Article>> articleData = mSearchViewModel
+                    .getAdditionalFilteredSearchResults(
+                            page,
+                            mFilterViewModel.getSortOrder(),
+                            mFilterViewModel.getDate(),
+                            mFilterViewModel.getNewsDesks());
+            articleData.observe(this, new Observer<List<Article>>() {
+                @Override
+                public void onChanged(@Nullable List<Article> articleList) {
+                    ((ArticleAdapter) mRecyclerSearch.getAdapter()).setArticles(articleList);
+                }
+            });
         } else {
             Log.d(TAG, "requestAdditionalResults: Unfiltered additional search!");
             mSearchViewModel.getAdditionalSearchResults(page).observe(this, new Observer<List<Article>>() {

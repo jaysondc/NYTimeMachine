@@ -1,6 +1,5 @@
 package com.shakeup.nytimemachine.features.search;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -60,39 +59,6 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void attachViews() {
-
-        // Set each view to listen for it's state from the ViewModel
-        mFilterViewModel.getSortOrderIndex().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer index) {
-                mSortOrderSpinner.setSelection(index);
-            }
-        });
-        mFilterViewModel.getDate().observe(this, new Observer<Long>() {
-            @Override
-            public void onChanged(Long date) {
-                mDateEditText.setText("No date yet!");
-            }
-        });
-        mFilterViewModel.getArts().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean checked) {
-                mArtsCheckbox.setChecked(checked);
-            }
-        });
-        mFilterViewModel.getFashionStyle().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean checked) {
-                mFashionStyleCheckbox.setChecked(checked);
-            }
-        });
-        mFilterViewModel.getSports().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean checked) {
-                mSportsCheckbox.setChecked(checked);
-            }
-        });
-
         // Set ClickListeners
         mApply.setOnClickListener(new View.OnClickListener() {
             @Override
