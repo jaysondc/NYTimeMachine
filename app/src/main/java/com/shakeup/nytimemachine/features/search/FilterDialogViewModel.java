@@ -57,4 +57,24 @@ public class FilterDialogViewModel extends ViewModel {
         }
         return mSports;
     }
+
+    public void setSortOrderIndex(int index) {
+        this.mSortOrderIndex.setValue(index);
+    }
+
+    public void setDate(long date) {
+        this.mDate.setValue(date);
+    }
+
+    public void setArts(boolean checked) {
+        this.mArts.setValue(checked);
+    }
+
+    public void setFashionStyle(boolean checked) {
+        this.mFashionStyle.setValue(checked);
+    }
+    
+    public void setSports(boolean checked) {
+        this.mSports.setValue(checked);
+    }
 }

@@ -30,6 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.recycler_search_results)
     public RecyclerView mRecyclerSearch;
     private SearchViewModel mSearchViewModel;
+    private FilterDialogViewModel mFilterViewModel;
     private EndlessRecyclerViewScrollListener mScrollListener;
 
     @Override

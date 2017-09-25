@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class FilterDialogFragment extends DialogFragment {
 
-    FilterDialogViewModel mFilterDialogViewModel;
+    FilterDialogViewModel mFilterViewModel;
 
     @BindView(R.id.spinner_sort_order)
     Spinner mSortOrderSpinner;
@@ -44,7 +44,8 @@ public class FilterDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_filter, container);
 
-        mFilterDialogViewModel = ViewModelProviders.of(this).get(FilterDialogViewModel.class);
+        mFilterViewModel =
+                ViewModelProviders.of(getActivity()).get(FilterDialogViewModel.class);
 
         ButterKnife.bind(this, view);
 
@@ -54,33 +55,33 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void attachViews() {
-        mFilterDialogViewModel.getSortOrderIndex().observe(this, new Observer<Integer>() {
+        mFilterViewModel.getSortOrderIndex().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer index) {
                 mSortOrderSpinner.setSelection(index);
             }
         });
 
-        mFilterDialogViewModel.getDate().observe(this, new Observer<Long>() {
+        mFilterViewModel.getDate().observe(this, new Observer<Long>() {
             @Override
             public void onChanged(Long date) {
                 mDateEditText.setText("No date yet!");
             }
         });
 
-        mFilterDialogViewModel.getArts().observe(this, new Observer<Boolean>() {
+        mFilterViewModel.getArts().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean checked) {
                 mArtsCheckbox.setChecked(checked);
             }
         });
-        mFilterDialogViewModel.getFashionStyle().observe(this, new Observer<Boolean>() {
+        mFilterViewModel.getFashionStyle().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean checked) {
                 mFashionStyleCheckbox.setChecked(checked);
             }
         });
-        mFilterDialogViewModel.getSports().observe(this, new Observer<Boolean>() {
+        mFilterViewModel.getSports().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean checked) {
                 mSportsCheckbox.setChecked(checked);
