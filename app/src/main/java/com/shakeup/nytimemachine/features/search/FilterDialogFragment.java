@@ -19,11 +19,12 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Jayson on 9/24/2017.
- *
+ * <p>
  * Dialog fragment used to set filter options for the search activity
  */
 
-public class FilterDialogFragment extends DialogFragment {
+public class FilterDialogFragment extends DialogFragment
+        implements DatePickerCallback {
 
     FilterDialogViewModel mFilterViewModel;
 
@@ -59,6 +60,20 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void attachViews() {
+        final FilterDialogFragment fragment = this;
+
+        mDateEditText.setText(mFilterViewModel.getFriendlyDate());
+        mDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDatePickerDialog datePicker = new SimpleDatePickerDialog();
+                datePicker.setCallback(fragment);
+                datePicker.show(getFragmentManager(), "date_picker");
+
+
+            }
+        });
+
         // Set ClickListeners
         mApply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +97,6 @@ public class FilterDialogFragment extends DialogFragment {
 
         mFilterViewModel.setSortOrderIndex(
                 mSortOrderSpinner.getSelectedItemPosition());
-        // TODO Reenable this once we figure out how DatePicker works
-//        mFilterViewModel.setDate(
-//                mDateEditText.getText().toString()
-//        );
         mFilterViewModel.setArts(mArtsCheckbox.isChecked());
         mFilterViewModel.setFashionStyle(mFashionStyleCheckbox.isChecked());
         mFilterViewModel.setSports(mSportsCheckbox.isChecked());
@@ -99,4 +110,11 @@ public class FilterDialogFragment extends DialogFragment {
         mFilterViewModel.setFilterEnabled(false);
         this.dismiss();
     }
+
+    @Override
+    public void onDatePicked(long date) {
+        mFilterViewModel.setDate(date);
+    }
+
 }
+

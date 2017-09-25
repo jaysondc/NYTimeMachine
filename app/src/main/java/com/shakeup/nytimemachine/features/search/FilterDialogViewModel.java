@@ -49,6 +49,14 @@ public class FilterDialogViewModel extends ViewModel {
         return formattedDate;
     }
 
+    public String getFriendlyDate() {
+        Date date = new Date(mDate);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = format.format(date);
+
+        return formattedDate;
+    }
+
     /**
      * Returns a List of applicable News Desks the user wants to see.
      * @return a List of Strings representing news desks
