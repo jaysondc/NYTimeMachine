@@ -1,7 +1,5 @@
 package com.shakeup.nytimemachine.features.search;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 /**
@@ -13,53 +11,33 @@ import android.arch.lifecycle.ViewModel;
 public class FilterDialogViewModel extends ViewModel {
 
     private boolean mFilterEnabled = false;
-    private MutableLiveData<Integer> mSortOrderIndex;
-    private MutableLiveData<Long> mDate;
-    private MutableLiveData<Boolean> mArts;
-    private MutableLiveData<Boolean> mFashionStyle;
-    private MutableLiveData<Boolean> mSports;
+    private int mSortOrderIndex = 0;
+    private long mDate = System.currentTimeMillis();
+    private boolean mArts = true;
+    private boolean mFashionStyle = true;
+    private boolean mSports = true;
 
     public boolean getFilterEnabled() {
         return mFilterEnabled;
     }
 
-    public LiveData<Integer> getSortOrderIndex() {
-        if (mSortOrderIndex == null) {
-            mSortOrderIndex = new MutableLiveData<>();
-            mSortOrderIndex.setValue(0);
-        }
+    public int getSortOrderIndex() {
         return mSortOrderIndex;
     }
 
-    public LiveData<Long> getDate() {
-        if (mDate == null) {
-            mDate = new MutableLiveData<>();
-            mDate.setValue(System.currentTimeMillis());
-        }
+    public long getDate() {
         return mDate;
     }
 
-    public LiveData<Boolean> getArts() {
-        if (mArts == null) {
-            mArts = new MutableLiveData<>();
-            mArts.setValue(true);
-        }
+    public boolean getArts() {
         return mArts;
     }
 
-    public LiveData<Boolean> getFashionStyle() {
-        if (mFashionStyle == null) {
-            mFashionStyle = new MutableLiveData<>();
-            mFashionStyle.setValue(true);
-        }
+    public boolean getFashionStyle() {
         return mFashionStyle;
     }
 
-    public LiveData<Boolean> getSports() {
-        if (mSports == null) {
-            mSports = new MutableLiveData<>();
-            mSports.setValue(true);
-        }
+    public boolean getSports() {
         return mSports;
     }
 
@@ -68,22 +46,22 @@ public class FilterDialogViewModel extends ViewModel {
     }
 
     public void setSortOrderIndex(int index) {
-        this.mSortOrderIndex.setValue(index);
+        this.mSortOrderIndex = index;
     }
 
     public void setDate(long date) {
-        this.mDate.setValue(date);
+        this.mDate = date;
     }
 
     public void setArts(boolean checked) {
-        this.mArts.setValue(checked);
+        this.mArts = checked;
     }
 
     public void setFashionStyle(boolean checked) {
-        this.mFashionStyle.setValue(checked);
+        this.mFashionStyle = checked;
     }
 
     public void setSports(boolean checked) {
-        this.mSports.setValue(checked);
+        this.mSports = checked;
     }
 }
