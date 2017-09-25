@@ -34,8 +34,17 @@ public class SearchRepository {
      * @param query Simple query for searching articles
      * @return an Observable that wraps our API call
      */
-    public Observable<List<Article>> getSearchArticles(final String query, final int page) {
-        return mSearchApi.getSearchResults(query, page);
+    public Observable<List<Article>> getSearchArticles(final String query,
+                                                       final Integer page,
+                                                       final String sortBy,
+                                                       final String beginDate,
+                                                       final String newsDesks) {
+        return mSearchApi.getSearchResults(
+                query,
+                page,
+                sortBy,
+                beginDate,
+                newsDesks);
     }
 
 

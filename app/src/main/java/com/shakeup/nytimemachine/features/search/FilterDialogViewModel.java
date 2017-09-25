@@ -2,7 +2,9 @@ package com.shakeup.nytimemachine.features.search;
 
 import android.arch.lifecycle.ViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ public class FilterDialogViewModel extends ViewModel {
 
     private final String SORT_BY_OLDEST = "oldest";
     private final String SORT_BY_NEWEST = "newest";
+    private final String NEWS_DESK_BASE = "news_desk";
     private final String NEWS_DESK_ARTS = "Arts";
     private final String NEWS_DESK_FASHION_STYLE = "Fashion & Style";
     private final String NEWS_DESK_SPORTS = "Sports";
@@ -39,21 +42,37 @@ public class FilterDialogViewModel extends ViewModel {
     }
 
     public String getDate() {
-        return Long.toString(mDate);
+        Date date = new Date(mDate);
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String formattedDate = format.format(date);
+
+        return formattedDate;
     }
 
     /**
      * Returns a List of applicable News Desks the user wants to see.
      * @return a List of Strings representing news desks
      */
-    public List<String> getNewsDesks() {
+    public String getNewsDesks() {
         List<String> newsDesks = new ArrayList<>();
 
         if (mArts) newsDesks.add(NEWS_DESK_ARTS);
         if (mFashionStyle) newsDesks.add(NEWS_DESK_FASHION_STYLE);
         if (mSports) newsDesks.add(NEWS_DESK_SPORTS);
 
-        return newsDesks;
+        if (newsDesks.isEmpty()) return null;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(NEWS_DESK_BASE);
+        sb.append(":(");
+        for (String s : newsDesks) {
+            sb.append(s);
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append(")");
+
+        return sb.toString();
     }
 
     public void setFilterEnabled(boolean enabled) {

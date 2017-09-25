@@ -14,7 +14,7 @@
     <string name="button_clear_filter">Clear</string>
 
     <string-array name="sort_order">
-        <item>Newest</item>
         <item>Oldest</item>
+        <item>Newest</item>
     </string-array>
 </resources>

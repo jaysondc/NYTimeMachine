@@ -15,28 +15,35 @@ import retrofit2.http.Query;
 public interface NytSearchApiEndpoints {
 
     /**
-     * Simple article search
+     * Filtered article search
      *
-     * @param key   Api key parameter
-     * @param query Basic search parameter
-     * @return List of {@link Article} objects
+     * @param key       Api key parameter
+     * @param query     Basic search parameter
+     * @param page      page number
+     * @param orderBy   sort_by argument
+     * @param beginDate begin_date argument
+     * @param newsDesks news_desk argument
+     * @return A call that returns a list of {@link Article} objects
      */
     @GET("articlesearch.json")
-    Call<NytSearchResponse> getSearchedArticles(
+    Call<NytSearchResponse> getSearchArticles(
             @Query("api_key") String key,
             @Query("q") String query,
-            @Query("page") int page
+            @Query("page") Integer page,
+            @Query("sort") String orderBy,
+            @Query("begin_date") String beginDate,
+            @Query("fq") String newsDesks
     );
 
     /**
      * Default article search
      *
      * @param key API key parameter
-     * @return
+     * @return A call that returns a list of {@link Article} objects
      */
     @GET("articlesearch.json")
     Call<NytSearchResponse> getDefaultArticles(
             @Query("api_key") String key,
-            @Query("page") int page
+            @Query("page") Integer page
     );
 }

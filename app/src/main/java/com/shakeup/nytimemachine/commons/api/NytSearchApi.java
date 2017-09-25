@@ -40,7 +40,11 @@ public class NytSearchApi {
         mSearchApi = retrofit.create(NytSearchApiEndpoints.class);
     }
 
-    public Observable<List<Article>> getSearchResults(final String query, final int page) {
+    public Observable<List<Article>> getSearchResults(final String query,
+                                                      final Integer page,
+                                                      final String sortBy,
+                                                      final String beginDate,
+                                                      final String newsDesks) {
         return Observable.create(new Observable.OnSubscribe<List<Article>>() {
             @Override
             public void call(Subscriber<? super List<Article>> subscriber) {
@@ -53,7 +57,13 @@ public class NytSearchApi {
                         call = mSearchApi.getDefaultArticles(apiKey, page);
                     } else {
                         // Explicit search
-                        call = mSearchApi.getSearchedArticles(apiKey, query, page);
+                        call = mSearchApi.getSearchArticles(
+                                apiKey,
+                                query,
+                                page,
+                                sortBy,
+                                beginDate,
+                                newsDesks);
                     }
 
                     Response<NytSearchResponse> response = call.execute();
