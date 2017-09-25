@@ -1,7 +1,9 @@
 package com.shakeup.nytimemachine.features.search.adapters;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,16 +64,18 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
     }
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
+        final View mView;
         @BindView(R.id.textview_article_headline) public TextView headline;
         @BindView(R.id.textview_article_snippet) public TextView snippet;
         @BindView(R.id.image_article) public ImageView imageView;
 
         public ArticleViewHolder(View view) {
             super(view);
+            this.mView = view;
             ButterKnife.bind(this, view);
         }
 
-        public void bind(Article article){
+        public void bind(final Article article){
             headline.setText(article.getHeadline());
             snippet.setText(article.getSnippet());
             if (article.hasImages()) {
@@ -83,6 +87,17 @@ public class ArticleAdapterDelegate extends AdapterDelegate<List<Article>> {
             } else {
                 imageView.setVisibility(View.GONE);
             }
+
+            // Set click listener
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String url = article.getWebUrl();
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(mView.getContext(), Uri.parse(url));
+                }
+            });
         }
     }
 

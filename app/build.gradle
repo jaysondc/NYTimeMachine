@@ -63,6 +63,9 @@ dependencies {
     // Adapter Delegates
     compile 'com.hannesdorfmann:adapterdelegates3:3.0.1'
 
+    // Chrome Custom Tabs
+    compile 'com.android.support:customtabs:26.1.0'
+
     testCompile 'junit:junit:4.12'
 }
 
