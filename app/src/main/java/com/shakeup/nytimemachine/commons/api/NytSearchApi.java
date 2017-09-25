@@ -6,6 +6,7 @@ import com.shakeup.nytimemachine.commons.models.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -72,7 +73,13 @@ public class NytSearchApi {
                         subscriber.onCompleted();
                     } else {
                         Log.d(TAG, "call: Failed request!");
-                        subscriber.onError(new Throwable(response.message()));
+                        if (response.raw().code() == 429) {
+                            subscriber.onError(new Throwable("Error code 429: Too many requests."));
+                        }
+                        subscriber.onError(new Throwable(String.format(
+                                Locale.getDefault(),
+                                "Error code %d",
+                                response.raw().code())));
                     }
                 } catch (Exception e){
                     // Call our subscribers exception handler
