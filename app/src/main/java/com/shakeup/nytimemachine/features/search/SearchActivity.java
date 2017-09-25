@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Create our ViewModel
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        mFilterViewModel = ViewModelProviders.of(this).get(FilterDialogViewModel.class);
 
         initAdapter();
         requestSearchResults("");
@@ -118,12 +120,17 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void requestSearchResults(String query) {
         mScrollListener.resetState();
-        mSearchViewModel.getNewSearchResults(query).observe(this, new Observer<List<Article>>() {
-            @Override
-            public void onChanged(@Nullable List<Article> articleList) {
-                ((ArticleAdapter) mRecyclerSearch.getAdapter()).setArticles(articleList);
-            }
-        });
+        if (mFilterViewModel.getFilterEnabled()) {
+            Log.d(TAG, "requestSearchResults: Filtered new search!");
+        } else {
+            Log.d(TAG, "requestSearchResults: Unfiltered new search!");
+            mSearchViewModel.getNewSearchResults(query).observe(this, new Observer<List<Article>>() {
+                @Override
+                public void onChanged(@Nullable List<Article> articleList) {
+                    ((ArticleAdapter) mRecyclerSearch.getAdapter()).setArticles(articleList);
+                }
+            });
+        }
     }
 
     /**
@@ -131,12 +138,17 @@ public class SearchActivity extends AppCompatActivity {
      * changes to the ArticleList (there won't be any unless the user initiates a new search)
      */
     private void requestAdditionalResults(int page) {
-        mSearchViewModel.getAdditionalSearchResults(page).observe(this, new Observer<List<Article>>() {
-            @Override
-            public void onChanged(@Nullable List<Article> articleList) {
-                ((ArticleAdapter) mRecyclerSearch.getAdapter()).appendArticles(articleList);
-            }
-        });
+        if (mFilterViewModel.getFilterEnabled()) {
+            Log.d(TAG, "requestAdditionalResults: Filtered additional search!");
+        } else {
+            Log.d(TAG, "requestAdditionalResults: Unfiltered additional search!");
+            mSearchViewModel.getAdditionalSearchResults(page).observe(this, new Observer<List<Article>>() {
+                @Override
+                public void onChanged(@Nullable List<Article> articleList) {
+                    ((ArticleAdapter) mRecyclerSearch.getAdapter()).appendArticles(articleList);
+                }
+            });
+        }
     }
 
     /**

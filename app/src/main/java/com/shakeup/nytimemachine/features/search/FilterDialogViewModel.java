@@ -12,11 +12,16 @@ import android.arch.lifecycle.ViewModel;
 
 public class FilterDialogViewModel extends ViewModel {
 
+    private boolean mFilterEnabled = false;
     private MutableLiveData<Integer> mSortOrderIndex;
     private MutableLiveData<Long> mDate;
     private MutableLiveData<Boolean> mArts;
     private MutableLiveData<Boolean> mFashionStyle;
     private MutableLiveData<Boolean> mSports;
+
+    public boolean getFilterEnabled() {
+        return mFilterEnabled;
+    }
 
     public LiveData<Integer> getSortOrderIndex() {
         if (mSortOrderIndex == null) {
@@ -58,6 +63,10 @@ public class FilterDialogViewModel extends ViewModel {
         return mSports;
     }
 
+    public void setFilterEnabled(boolean enabled) {
+        this.mFilterEnabled = enabled;
+    }
+
     public void setSortOrderIndex(int index) {
         this.mSortOrderIndex.setValue(index);
     }
@@ -73,7 +82,7 @@ public class FilterDialogViewModel extends ViewModel {
     public void setFashionStyle(boolean checked) {
         this.mFashionStyle.setValue(checked);
     }
-    
+
     public void setSports(boolean checked) {
         this.mSports.setValue(checked);
     }

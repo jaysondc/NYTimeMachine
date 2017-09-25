@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,6 +38,10 @@ public class FilterDialogFragment extends DialogFragment {
     CheckBox mFashionStyleCheckbox;
     @BindView(R.id.checkbox_sports)
     CheckBox mSportsCheckbox;
+    @BindView(R.id.button_apply)
+    Button mApply;
+    @BindView(R.id.button_cancel)
+    Button mClear;
 
 
     @Nullable
@@ -55,20 +60,20 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void attachViews() {
+
+        // Set each view to listen for it's state from the ViewModel
         mFilterViewModel.getSortOrderIndex().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer index) {
                 mSortOrderSpinner.setSelection(index);
             }
         });
-
         mFilterViewModel.getDate().observe(this, new Observer<Long>() {
             @Override
             public void onChanged(Long date) {
                 mDateEditText.setText("No date yet!");
             }
         });
-
         mFilterViewModel.getArts().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean checked) {
@@ -87,6 +92,45 @@ public class FilterDialogFragment extends DialogFragment {
                 mSportsCheckbox.setChecked(checked);
             }
         });
+
+        // Set ClickListeners
+        mApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onApplyClicked();
+            }
+        });
+        mClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClearClicked();
+            }
+        });
     }
 
+    /**
+     * Once apply is clicked, store new button states to the ViewModel
+     */
+    public void onApplyClicked() {
+        mFilterViewModel.setFilterEnabled(true);
+
+        mFilterViewModel.setSortOrderIndex(
+                mSortOrderSpinner.getSelectedItemPosition());
+        // TODO Reenable this once we figure out how DatePicker works
+//        mFilterViewModel.setDate(
+//                mDateEditText.getText().toString()
+//        );
+        mFilterViewModel.setArts(mArtsCheckbox.isChecked());
+        mFilterViewModel.setFashionStyle(mFashionStyleCheckbox.isChecked());
+        mFilterViewModel.setSports(mSportsCheckbox.isChecked());
+        this.dismiss();
+    }
+
+    /**
+     * If cancel is clicked, dismiss the fragment and do nothing.
+     */
+    public void onClearClicked() {
+        mFilterViewModel.setFilterEnabled(false);
+        this.dismiss();
+    }
 }

@@ -106,4 +106,23 @@
         app:layout_constraintBottom_toBottomOf="@id/checkbox_sports"
         app:layout_constraintLeft_toRightOf="@id/checkbox_sports"
         app:layout_constraintTop_toTopOf="@id/checkbox_sports" />
+
+    <Button
+        android:id="@+id/button_apply"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_apply_filter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_sports" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        style="@android:style/Widget.Material.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_clear_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_sports" />
 </android.support.constraint.ConstraintLayout>

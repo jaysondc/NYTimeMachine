@@ -17,8 +17,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-
 /**
  * Created by Jayson on 9/20/2017.
  *
@@ -28,7 +26,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class SearchViewModel extends AndroidViewModel {
 
-    public final String LOG_TAG = this.getClass().getSimpleName();
+    public final String TAG = this.getClass().getSimpleName();
     @Inject
     public SearchRepository mSearchRepo;
     private String mQuery;

@@ -10,6 +10,8 @@
     <string name="news_desk_arts">Arts</string>
     <string name="news_desk_fashion_and_style">Fashion and Style</string>
     <string name="news_desk_sports">Sports</string>
+    <string name="button_apply_filter">Apply</string>
+    <string name="button_clear_filter">Clear</string>
 
     <string-array name="sort_order">
         <item>Newest</item>
